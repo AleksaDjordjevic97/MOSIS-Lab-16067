@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
+    static int NEW_PLACE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,8 +32,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(MainActivity.this,EditMyPlaceActivity.class);
+                startActivityForResult(i,NEW_PLACE);
             }
         });
     }
@@ -57,7 +58,8 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.new_place_item)
         {
-            Toast.makeText(this,"New Place!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this,EditMyPlaceActivity.class);
+            startActivityForResult(i,NEW_PLACE);
         }
         else if (id == R.id.my_places_list_item)
         {

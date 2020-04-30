@@ -50,6 +50,8 @@ public class ViewMyPlacesActivity extends AppCompatActivity
             twName.setText(place.getName());
             TextView twDesc = (TextView)findViewById(R.id.viewmyplace_desc_text);
             twDesc.setText(place.getDescription());
+            TextView twLocation = (TextView)findViewById(R.id.viewmyplace_location_text);  //DEO ZA DOMACI, PRIKAZ LOKACIJE U VIEWMYPLACESACTIVITY
+            twLocation.setText(place.getLatitude() + "\n" + place.getLongitude());
         }
         final Button finishedButton = (Button)findViewById(R.id.viewmyplace_finished_button);
         finishedButton.setOnClickListener(new View.OnClickListener()
@@ -76,11 +78,7 @@ public class ViewMyPlacesActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        if (id == R.id.show_map_item)
-        {
-            Toast.makeText(this,"Show Map!", Toast.LENGTH_SHORT).show();
-        }
-        else if (id == R.id.my_places_list_item)
+        if (id == R.id.my_places_list_item)
         {
             Intent i = new Intent(this,MyPlacesList.class);
             startActivity(i);

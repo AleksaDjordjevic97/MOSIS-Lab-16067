@@ -24,8 +24,17 @@
     <TextView
         android:id="@+id/viewmyplace_desc_text"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/editmyplace_name_label"/>
+        android:text="@string/viewmyplace_location_label"/>
+
+    <TextView
+        android:id="@+id/viewmyplace_location_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/viewmyplace_finished_button"

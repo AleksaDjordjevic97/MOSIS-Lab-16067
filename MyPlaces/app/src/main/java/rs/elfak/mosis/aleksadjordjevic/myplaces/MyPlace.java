@@ -2,13 +2,19 @@ package rs.elfak.mosis.aleksadjordjevic.myplaces;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class MyPlace
 {
-    String name;
-    String description;
-    String longitude;
-    String latitude;
-    int ID;
+    public String name;
+    public String description;
+    public String longitude;
+    public String latitude;
+    @Exclude
+    public String key;
+    public MyPlace(){}
 
     public MyPlace(String name, String description)
     {
@@ -61,14 +67,14 @@ public class MyPlace
         this.latitude = latitude;
     }
 
-    public int getID()
+    public String getKey()
     {
-        return ID;
+        return key;
     }
 
-    public void setID(int ID)
+    public void setKey(String key)
     {
-        this.ID = ID;
+        this.key = key;
     }
 
     @NonNull

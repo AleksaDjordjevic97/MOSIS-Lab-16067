@@ -6,7 +6,13 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -25,6 +31,8 @@ import java.util.ArrayList;
 public class MyPlacesList extends AppCompatActivity
 {
     ArrayList<String> places;
+    DatabaseReference database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -34,6 +42,8 @@ public class MyPlacesList extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        database = FirebaseDatabase.getInstance().getReference().child("my-places");
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
@@ -73,6 +83,21 @@ public class MyPlacesList extends AppCompatActivity
                 menu.add(0,2,2,"Edit place");
                 menu.add(0,3,3,"Delete place");
                 menu.add(0,4,4,"Show on map");
+            }
+        });
+
+        database.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                setList();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+
             }
         });
     }

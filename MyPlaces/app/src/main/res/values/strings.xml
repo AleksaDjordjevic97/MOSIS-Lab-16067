@@ -32,4 +32,7 @@
     <string name="editmyplace_lat_label">Latitude:</string>
     <string name="editmyplace_lon_label">Longitude:</string>
     <string name="editmyplace_location_label">Get Location</string>
+    <string name="signout_label">Sign Out</string>
+    <string name="login_label">Login</string>
+    <string name="register_label">Register</string>
 </resources>

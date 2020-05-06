@@ -30,6 +30,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +52,8 @@ public class MyPlacesMapsActivity extends AppCompatActivity implements OnMapRead
     private int state = 0;
     private boolean selCoorsEnabled = false;
     private LatLng placeLoc;
+
+    DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,6 +85,8 @@ public class MyPlacesMapsActivity extends AppCompatActivity implements OnMapRead
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        database = FirebaseDatabase.getInstance().getReference().child("my-places");
+
         FloatingActionButton fab = findViewById(R.id.fab);
         if(state != SELECT_COORDINATES)
         {
@@ -98,6 +107,20 @@ public class MyPlacesMapsActivity extends AppCompatActivity implements OnMapRead
                 layout.removeView(fab);
         }
 
+        database.addValueEventListener(new ValueEventListener()                  //DEO ZA DOMACI, DODAT LISTENER NA MAPI
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                addMyPlaceMarkers();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+
+            }
+        });
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -247,6 +270,7 @@ public class MyPlacesMapsActivity extends AppCompatActivity implements OnMapRead
     {
         ArrayList<MyPlace> places = MyPlacesData.getInstance().getMyPlaces();
         markerPlaceIdMap = new HashMap<>((int)((double)places.size()*1.2));
+        mMap.clear();
         for(int i = 0; i < places.size(); i++)
         {
             MyPlace place = places.get(i);

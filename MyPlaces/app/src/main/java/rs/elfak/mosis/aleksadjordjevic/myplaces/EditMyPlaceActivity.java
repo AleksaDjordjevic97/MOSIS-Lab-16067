@@ -122,11 +122,8 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
                 }
                 else
                 {
-                    MyPlace place = MyPlacesData.getInstance().getPlace(position);
-                    place.setName(name);
-                    place.setDescription(desc);
-                    place.setLatitude(lat);
-                    place.setLongitude(lon);
+                    MyPlacesData.getInstance().updatePlace(position,name,desc,lon,lat);
+
                 }
 
                 setResult(Activity.RESULT_OK);

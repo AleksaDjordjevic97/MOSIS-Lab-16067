@@ -1,10 +1,12 @@
 package rs.elfak.mosis.aleksadjordjevic.myplaces;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity
 {
     static int NEW_PLACE = 1;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,6 +28,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mAuth = FirebaseAuth.getInstance();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
@@ -41,7 +46,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -72,6 +76,14 @@ public class MainActivity extends AppCompatActivity
         {
             Intent i = new Intent(this,About.class);
             startActivity(i);
+        }
+        else if(id == R.id.signout_item)
+        {
+            mAuth.signOut();
+            Intent logoutIntent = new Intent(MainActivity.this, StartActivity.class);
+            logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(logoutIntent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

@@ -65,10 +65,14 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
             nameEditText.setText(place.getName());
             EditText descEditText = (EditText)findViewById(R.id.editmyplace_desc_edit);
             descEditText.setText(place.getDescription());
+            EditText latEditText = findViewById(R.id.editmyplace_lat_edit);
+            latEditText.setText(place.getLatitude());
+            EditText lonEditText = findViewById(R.id.editmyplace_lon_edit);
+            lonEditText.setText(place.getLongitude());
+            finishedButton.setEnabled(nameEditText.length() > 0);
         }
 
         finishedButton.setOnClickListener(this);
-        finishedButton.setEnabled(false);
         canceledButton.setOnClickListener(this);
 
         nameEditText.addTextChangedListener(new TextWatcher()
@@ -193,6 +197,7 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
                 String lat = data.getExtras().getString("lat");
                 EditText latText = (EditText) findViewById(R.id.editmyplace_lat_edit);
                 latText.setText(lat);
+
             }
         } catch (Exception e)
         {

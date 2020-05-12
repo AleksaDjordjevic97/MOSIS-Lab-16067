@@ -107,6 +107,10 @@ public class MyPlacesMapsActivity extends AppCompatActivity implements OnMapRead
                 layout.removeView(fab);
         }
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
         database.addValueEventListener(new ValueEventListener()                  //DEO ZA DOMACI, DODAT LISTENER NA MAPI
         {
             @Override
@@ -123,9 +127,7 @@ public class MyPlacesMapsActivity extends AppCompatActivity implements OnMapRead
         });
 
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
     }
 
 
